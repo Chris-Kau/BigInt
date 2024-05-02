@@ -44,10 +44,7 @@ class BigInt
 
 		int size()
 		{
-			int size = 0;
-			for(int i = 0; i < v.size(); i++)
-				size++;
-			return size;
+			return v.size();
 		}
 		void print()
 		{
@@ -63,10 +60,6 @@ class BigInt
 			int carry = 0;
 			string temp;
 			string temp2;
-			vector<char> k;
-			//putting all of n into a new vector k
-			for(int i = 0; i < n.size(); i++)
-				k.push_back(int(n[i]));
 			//pads the numbers with zeroes so the sizes are the same
 			if(v.size() < n.size())
 			{
@@ -74,14 +67,14 @@ class BigInt
 					v.push_back('0' - 48);
 			}else if(n.size() < v.size())
 			{
-				while(k.size() < v.size())
-					k.push_back('0' - 48);
+				while(n.v.size() < v.size())
+					n.v.push_back('0' - 48);
 			}
 				
 			//assuming v and n are now the same size
 			for(int i = 0; i < v.size(); i++)
 			{
-				sum = int(v[i]) + int(k[i]) + carry;
+				sum = (v[i]-0) + (n.v[i] - 0) + carry;
 				if(sum >= 10)
 				{
 					carry = 1;
@@ -108,29 +101,24 @@ class BigInt
 		{
 			int difference;
 			int carry = 0;
-			vector<char> k;
 			vector<char> temp;
 			string tempans;
-			for(int i = 0; i < n.size(); i++)
-			{
-				k.push_back(int(n[i]));
-			}
 			//assuming v is bigger than n so we only pad n
 			if(n.size() < v.size())
 			{
-				while(k.size() < v.size())
+				while(n.size() < v.size())
 				{
-					k.push_back('0' - 48);
+					n.v.push_back('0' - 48);
 				}
 			}
 			for(int i = 0; i < v.size(); i++)
 			{
-				if(int(v[i]) < int(k[i]))
+				if(int(v[i]) < int(n.v[i]))
 				{
 					v[i+1] = int(v[i+1]) - 1;
 					v[i] = int(v[i]) + 10;
 				}
-				difference = (int(v[i])) - int(k[i]);
+				difference = (int(v[i])) - int(n.v[i]);
 				temp.push_back(difference);
 			}
 
@@ -159,12 +147,11 @@ class BigInt
 
 			BigInt counter(0);
 			BigInt num = *this;
-			BigInt one(1);
 			if (num > n)
 			{
 				while(true)
 				{
-					counter = counter + one;
+					counter++;	
 					num = num - n;
 					if(n > num)
 						break;
@@ -176,22 +163,18 @@ class BigInt
 
 		BigInt operator*(BigInt n)
 		{
-			string temp;
 			BigInt min = *this;
 			BigInt factor = n;
-			BigInt one(1);
-			int count = 0;
 			if(min > n)
 			{
 				min = n;
 				factor = *this;
 			}
 			BigInt result(factor);
-			if(min > one && n > one)
+			if(min > 1 && n > 1)
 			{
 				for(BigInt i(0); min > i + 1; i++)
 				{
-					count++;
 					result = result + factor;
 				}
 			}
@@ -383,9 +366,5 @@ void testUnit()
 int main()
 {
 	testUnit();	
-	//BigInt fibo("12345");
-	//BigInt test("50");
-	//cout << test.fact() << endl;
-	//cout << fibo.fibo() << endl;
 	return 0;
 }
