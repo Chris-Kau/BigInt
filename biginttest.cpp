@@ -74,7 +74,7 @@ class BigInt
 			//assuming v and n are now the same size
 			for(int i = 0; i < v.size(); i++)
 			{
-				sum = (v[i]-0) + (n.v[i] - 0) + carry;
+				sum = (v[i]-0) + (n[i] - 0) + carry;
 				if(sum >= 10)
 				{
 					carry = 1;
@@ -113,12 +113,12 @@ class BigInt
 			}
 			for(int i = 0; i < v.size(); i++)
 			{
-				if(int(v[i]) < int(n.v[i]))
+				if(int(v[i]) < int(n[i]))
 				{
 					v[i+1] = int(v[i+1]) - 1;
 					v[i] = int(v[i]) + 10;
 				}
-				difference = (int(v[i])) - int(n.v[i]);
+				difference = (int(v[i])) - int(n[i]);
 				temp.push_back(difference);
 			}
 
