@@ -4,6 +4,7 @@
 // Due 05/9/2024
 // I certify that this program is my own original work. I did not copy any part of this program from any other source. I further certify that I typed each and every line of code in this program.
 #include <iostream>
+#include <cstring>
 #include <vector>
 #include <string>
 #include <iterator>
@@ -28,10 +29,16 @@ class BigInt
 	public:
 		BigInt(){};
 		BigInt(int a){
-			string temp = to_string(a);
-			for(int i = temp.size() - 1; i >= 0 ; i--)
+			if(a == 0)
+				v.push_back(0);
+			else
 			{
-				v.push_back(temp[i] - 48);
+				while(a > 0)
+				{
+					char digit = a%10;
+					v.push_back(digit);
+					a /= 10;
+				}
 			}
 		};
 		BigInt(string a){
@@ -64,11 +71,11 @@ class BigInt
 			if(v.size() < n.size())
 			{
 				while(v.size() < n.size())
-					v.push_back('0' - 48);
+					v.push_back(0);
 			}else if(n.size() < v.size())
 			{
 				while(n.v.size() < v.size())
-					n.v.push_back('0' - 48);
+					n.v.push_back(0);
 			}
 				
 			//assuming v and n are now the same size
@@ -108,7 +115,7 @@ class BigInt
 			{
 				while(n.size() < v.size())
 				{
-					n.v.push_back('0' - 48);
+					n.v.push_back(0);
 				}
 			}
 			for(int i = 0; i < v.size(); i++)
