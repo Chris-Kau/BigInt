@@ -72,16 +72,17 @@ class BigInt
 			{
 				while(v.size() < n.size())
 					v.push_back(0);
-			}else if(n.size() < v.size())
+			}else
 			{
-				while(n.v.size() < v.size())
+				while(n.size() < v.size())
 					n.v.push_back(0);
 			}
 				
 			//assuming v and n are now the same size
 			for(int i = 0; i < v.size(); i++)
 			{
-				sum = (v[i]-0) + (n[i] - 0) + carry;
+				sum = v[i] + n[i] + carry;
+				//if sum is >= 10 that means we have a carry
 				if(sum >= 10)
 				{
 					carry = 1;
@@ -111,12 +112,9 @@ class BigInt
 			vector<char> temp;
 			string tempans;
 			//assuming v is bigger than n so we only pad n
-			if(n.size() < v.size())
+			while(n.size() < v.size())
 			{
-				while(n.size() < v.size())
-				{
-					n.v.push_back(0);
-				}
+				n.v.push_back(0);
 			}
 			for(int i = 0; i < v.size(); i++)
 			{
@@ -125,7 +123,7 @@ class BigInt
 					v[i+1] = int(v[i+1]) - 1;
 					v[i] = int(v[i]) + 10;
 				}
-				difference = (int(v[i])) - int(n[i]);
+				difference = v[i] - n[i];
 				temp.push_back(difference);
 			}
 
@@ -154,15 +152,10 @@ class BigInt
 
 			BigInt counter(0);
 			BigInt num = *this;
-			if (num > n)
+			while(num > n)
 			{
-				while(true)
-				{
-					counter++;	
-					num = num - n;
-					if(n > num)
-						break;
-				}
+				counter++;	
+				num = num - n;
 			}
 			return counter;
 		}
@@ -178,6 +171,7 @@ class BigInt
 				factor = *this;
 			}
 			BigInt result(factor);
+			//a num multiplied by 1 is itself
 			if(min > 1 && n > 1)
 			{
 				for(BigInt i(0); min > i + 1; i++)
